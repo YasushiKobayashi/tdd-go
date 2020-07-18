@@ -12,6 +12,10 @@ func newDollar(amount int) *Dollar {
 	}
 }
 
-func (d *Dollar) times(multiplier int) *Dollar {
+func (d *Dollar) Times(multiplier int) *Dollar {
 	return newDollar(d.amount * multiplier)
+}
+
+func (d *Dollar) Equals(p *Dollar) bool {
+	return d.amount == p.amount
 }
