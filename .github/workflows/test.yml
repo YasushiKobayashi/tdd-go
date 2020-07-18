@@ -21,9 +21,13 @@ jobs:
       - run: go vet ./...
       - run: go test -cover -coverprofile=coverage.txt -covermode=atomic ./...
       - run: go tool cover -html=coverage.txt -o cover.html
-      - run: bash <(curl -s https://codecov.io/bash)
       - run: cp cover.html $TEST_ARTIFACTS
       - run: go build main.go
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage.txt
+          files: ./cover.html
       - uses: actions/upload-artifact@master
         with:
           name: test-artifacts
