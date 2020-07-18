@@ -1,0 +1,30 @@
+name: test
+on:
+  push:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    env:
+      TEST_ARTIFACTS: /tmp/artifacts
+    steps:
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.14
+      - uses: actions/checkout@v1
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v1
+        with:
+          # Required: the version of golangci-lint is required and must be specified without patch version: we always use the latest patch version.
+          version: v1.28
+      - run: go vet ./...
+      - run: go test -cover -coverprofile=coverage.txt -covermode=atomic ./...
+      - run: go tool cover -html=coverage.txt -o cover.html
+      - run: bash <(curl -s https://codecov.io/bash)
+      - run: cp cover.html $TEST_ARTIFACTS
+      - run: go build main.go
+      - uses: actions/upload-artifact@master
+        with:
+          name: test-artifacts
+          path: /tmp/artifacts
