@@ -2,7 +2,7 @@ package money
 
 import "testing"
 
-func TestMultiplication(t *testing.T) {
+func TestMoneyMultiplication(t *testing.T) {
 	five := newDollar(5)
 
 	two := five.Times(2)
@@ -18,7 +18,7 @@ func TestMultiplication(t *testing.T) {
 	}
 }
 
-func TestEquality(t *testing.T) {
+func TestMoneyEquality(t *testing.T) {
 	five := newDollar(5)
 	newFive := newDollar(5)
 	if !five.Equals(newFive) {
