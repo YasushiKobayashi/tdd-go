@@ -14,6 +14,6 @@ func newDollar(amount int) *Dollar {
 	}
 }
 
-func (d *Dollar) Times(multiplier int) *Dollar {
+func (d *Dollar) Times(multiplier int) MoneyInterface {
 	return newDollar(d.amount * multiplier)
 }
